@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Aksha_data/Akash_New_Running_Projects/YayatoTaxiApp/yayatokotlin/YayatoTaxi/app/src/main/res/layout/activity_sign_up.xml" value="0.20416666666666666" />
+        <entry key="..\:/Aksha_data/Akash_New_Running_Projects/YayatoTaxiApp/yayatokotlin/YayatoTaxi/app/src/main/res/layout/activity_update_profiel.xml" value="0.20416666666666666" />
+        <entry key="..\:/Aksha_data/Akash_New_Running_Projects/YayatoTaxiApp/yayatokotlin/YayatoTaxi/app/src/main/res/layout/activity_verify.xml" value="0.20416666666666666" />
+        <entry key="..\:/Aksha_data/Akash_New_Running_Projects/YayatoTaxiApp/yayatokotlin/YayatoTaxi/app/src/main/res/layout/dashboard_drawer.xml" value="0.20416666666666666" />
+      </map>
+    </option>
+  </component>
+  <component name="ExternalStorageConfigurationManager" enabled="true" />
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK" />
+</project>

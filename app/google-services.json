@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1010925661763",
+    "project_id": "yayatotaxi",
+    "storage_bucket": "yayatotaxi.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1010925661763:android:d9688ab20c652b6c7faef6",
+        "android_client_info": {
+          "package_name": "com.yayatotaxi"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1010925661763-mvn729889qr6r8s8gctr5ilbhp3jc822.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.yayatotaxi",
+            "certificate_hash": "f9013a7680c5a5d6bb554ef96ea250be88f7f6d2"
+          }
+        },
+        {
+          "client_id": "1010925661763-32gupgp7n6q3fgg6s88nhn9h8ja2jh3c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD25NediL3V6Tcv01-_actVFeSC2zLLIIo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1010925661763-32gupgp7n6q3fgg6s88nhn9h8ja2jh3c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

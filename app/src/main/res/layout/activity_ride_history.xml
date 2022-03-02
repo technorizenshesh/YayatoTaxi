@@ -44,11 +44,18 @@
 
         </RelativeLayout>
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/recycleView"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+
         <androidx.cardview.widget.CardView
             android:id="@+id/cvhistoryDetail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/_9sdp"
+            android:visibility="gone"
             app:cardElevation="@dimen/_10sdp"
             android:elevation="@dimen/_40sdp"
             app:cardCornerRadius="@dimen/_10sdp">
@@ -237,6 +244,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/_9sdp"
             app:cardElevation="@dimen/_10sdp"
+            android:visibility="gone"
             android:elevation="@dimen/_40sdp"
             app:cardCornerRadius="@dimen/_10sdp">
 

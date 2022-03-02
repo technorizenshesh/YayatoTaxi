@@ -55,8 +55,13 @@ class VerifyAct : AppCompatActivity() {
         paramHash = intent.getSerializableExtra("resgisterHashmap") as HashMap<String, String>
         fileHashMap = intent.getSerializableExtra("fileHashMap") as HashMap<String, File>
 
-        if (InternetConnection.checkConnection(mContext)) sendVerificationCode()
-        else MyApplication.showConnectionDialog(mContext)
+        if (InternetConnection.checkConnection(mContext)){
+//            sendVerificationCode()
+            signupCallApi()
+        }
+        else {
+            MyApplication.showConnectionDialog(mContext)
+        }
 
         itit()
     }
@@ -160,11 +165,7 @@ class VerifyAct : AppCompatActivity() {
 
                 override fun onCodeSent(id: String, forceResendingToken: ForceResendingToken) {
                     this@VerifyAct.id = id
-                    Toast.makeText(
-                        mContext,
-                        getString(R.string.enter_6_digit_code),
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    Toast.makeText(mContext, getString(R.string.enter_6_digit_code), Toast.LENGTH_SHORT).show()
                 }
 
                 override fun onVerificationCompleted(phoneAuthCredential: PhoneAuthCredential) {
@@ -217,7 +218,8 @@ class VerifyAct : AppCompatActivity() {
         val type = RequestBody.create(MediaType.parse("text/plain"), paramHash["type"])
         val step = RequestBody.create(MediaType.parse("text/plain"), "1")
 
-        profileFilePart = MultipartBody.Part.createFormData("image", fileHashMap["image"]!!.name,
+        profileFilePart = MultipartBody.Part.createFormData(
+            "image", fileHashMap["image"]!!.name,
             RequestBody.create(MediaType.parse("car_document/*"), fileHashMap["image"])
         )
 
@@ -256,6 +258,5 @@ class VerifyAct : AppCompatActivity() {
 
         })
     }
-
 
 }

@@ -57,104 +57,174 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recycle_view"
+                <CheckBox
+                    android:id="@+id/bookingType"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    tools:listitem="@layout/item_ride_book"
-                    android:padding="@dimen/_5sdp"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+                    android:layout_marginStart="@dimen/_15sdp"
+                    android:text="Carpool" />
 
                 <LinearLayout
+                    android:id="@+id/carpoolLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:weightSum="1">
+                    android:orientation="vertical"
+                    android:visibility="gone">
 
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="match_parent"
-                        android:orientation="horizontal">
 
-                        <TextView
-                            android:layout_width="wrap_content"
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/_15sdp"
+                        android:layout_marginVertical="@dimen/_10sdp"
+                        android:background="@color/white"
+                        android:elevation="@dimen/_5sdp">
+
+                        <EditText
+                            android:id="@+id/etdate"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="@string/estimated_trip_time"
+                            android:backgroundTint="@color/white"
+                            android:cursorVisible="false"
+                            android:focusable="false"
+                            android:focusableInTouchMode="false"
+                            android:fontFamily="@font/poppins_medium"
+                            android:hint="Date"
+                            android:imeOptions="actionNext"
+                            android:includeFontPadding="false"
+                            android:inputType="textVisiblePassword|textMultiLine"
+                            android:padding="@dimen/_12sdp"
                             android:textColor="@color/black"
-                            android:textSize="@dimen/_12sdp"
-                            android:layout_marginStart="@dimen/_15sdp"
-                            android:fontFamily="@font/poppins_regular" />
+                            android:textColorHint="@color/black"
+                            android:textSize="@dimen/_12sdp" />
 
-                        <TextView
-                            android:id="@+id/tv_ride_distance"
-                            android:layout_width="wrap_content"
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/_15sdp"
+                        android:layout_marginVertical="@dimen/_10sdp"
+                        android:background="@color/white"
+                        android:elevation="@dimen/_5sdp">
+
+                        <EditText
+                            android:id="@+id/etpickupTime"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="22 min"
+                            android:backgroundTint="@color/white"
+                            android:cursorVisible="false"
+                            android:focusable="false"
+                            android:focusableInTouchMode="false"
+                            android:fontFamily="@font/poppins_medium"
+                            android:hint="Pickup time"
+                            android:imeOptions="actionNext"
+                            android:includeFontPadding="false"
+                            android:inputType="textVisiblePassword|textMultiLine"
+                            android:padding="@dimen/_12sdp"
                             android:textColor="@color/black"
-                            android:textSize="@dimen/_12sdp"
-                            android:layout_marginStart="@dimen/_15sdp"
-                            android:fontFamily="@font/poppins_medium" />
+                            android:textColorHint="@color/black"
+                            android:textSize="@dimen/_12sdp" />
 
-                    </LinearLayout>
+                    </RelativeLayout>
 
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/_15sdp"
+                        android:layout_marginVertical="@dimen/_10sdp"
+                        android:background="@color/white"
+                        android:elevation="@dimen/_5sdp">
+
+                        <EditText
+                            android:id="@+id/etnoOfSeats"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:backgroundTint="@color/white"
+                            android:cursorVisible="false"
+                            android:focusable="false"
+                            android:focusableInTouchMode="false"
+                            android:fontFamily="@font/poppins_medium"
+                            android:hint="No Of Seats"
+                            android:imeOptions="actionNext"
+                            android:includeFontPadding="false"
+                            android:inputType="textVisiblePassword|textMultiLine"
+                            android:padding="@dimen/_12sdp"
+                            android:textColor="@color/black"
+                            android:textColorHint="@color/black"
+                            android:textSize="@dimen/_12sdp" />
+
+                    </RelativeLayout>
                 </LinearLayout>
+
+
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recycle_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="@dimen/_5sdp"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
+                    android:id="@+id/paymentoption"
                     android:orientation="vertical">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/select_payment_type"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/_13sdp"
                         android:layout_marginLeft="@dimen/_15sdp"
                         android:layout_marginTop="@dimen/_5sdp"
-                        android:fontFamily="@font/poppins_medium" />
+                        android:fontFamily="@font/poppins_medium"
+                        android:text="@string/select_payment_type"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_13sdp" />
 
                     <RadioGroup
+                        android:id="@+id/radioGroup"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:weightSum="3"
                         android:layout_marginLeft="@dimen/_10sdp"
                         android:layout_marginRight="@dimen/_10sdp"
+                        android:gravity="center"
                         android:orientation="horizontal"
-                        android:gravity="center">
+                        android:weightSum="3">
 
                         <RadioButton
                             android:id="@+id/rbCash"
                             android:layout_width="0dp"
-                            android:includeFontPadding="false"
-                            android:layout_weight="1"
-                            android:textSize="@dimen/_12sdp"
                             android:layout_height="wrap_content"
-                            android:textStyle="bold"
-                            android:text="@string/cash"/>
+                            android:layout_weight="1"
+                            android:includeFontPadding="false"
+                            android:text="@string/cash"
+                            android:textSize="@dimen/_12sdp"
+                            android:textStyle="bold" />
 
                         <RadioButton
                             android:id="@+id/rbCard"
                             android:layout_width="0dp"
+                            android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:includeFontPadding="false"
+                            android:text="@string/card"
                             android:textSize="@dimen/_12sdp"
-                            android:layout_height="wrap_content"
-                            android:textStyle="bold"
-                            android:text="@string/card"/>
+                            android:textStyle="bold" />
 
                         <RadioButton
                             android:id="@+id/rbWallet"
                             android:layout_width="0dp"
-                            android:includeFontPadding="false"
-                            android:layout_weight="1"
-                            android:textSize="@dimen/_12sdp"
                             android:layout_height="wrap_content"
-                            android:textStyle="bold"
-                            android:text="@string/wallet_pay"/>
+                            android:layout_weight="1"
+                            android:includeFontPadding="false"
+                            android:text="@string/wallet_pay"
+                            android:textSize="@dimen/_12sdp"
+                            android:textStyle="bold" />
 
                     </RadioGroup>
 
@@ -169,33 +239,33 @@
                     <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/btnBook"
                         android:layout_width="0dp"
-                        android:layout_weight="0.5"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/_10sdp"
+                        android:layout_marginRight="@dimen/_10sdp"
+                        android:layout_marginBottom="@dimen/_10sdp"
+                        android:layout_weight="0.5"
                         android:background="@drawable/login_bt_back"
                         android:fontFamily="@font/poppins_medium"
                         android:padding="@dimen/_8sdp"
                         android:text="@string/book_ride"
                         android:textAllCaps="false"
-                        android:layout_marginLeft="@dimen/_10sdp"
-                        android:layout_marginBottom="@dimen/_10sdp"
-                        android:layout_marginRight="@dimen/_10sdp"
                         android:textColor="@color/white"
                         android:textSize="@dimen/_16sdp" />
 
                     <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/btnScheduleRide"
                         android:layout_width="0dp"
-                        android:layout_weight="0.5"
-                        android:visibility="gone"
                         android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
                         android:background="@color/purple_700"
                         android:fontFamily="@font/poppins_medium"
                         android:padding="@dimen/_10sdp"
                         android:text="@string/schedule_ride"
                         android:textAllCaps="false"
                         android:textColor="@color/white"
-                        android:textSize="@dimen/_16sdp" />
+                        android:textSize="@dimen/_16sdp"
+                        android:visibility="gone" />
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
 

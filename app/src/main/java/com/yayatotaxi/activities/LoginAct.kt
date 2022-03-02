@@ -17,6 +17,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
+import com.google.android.gms.maps.model.LatLng
 import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.*
 import com.google.firebase.messaging.FirebaseMessaging
@@ -46,6 +47,9 @@ class LoginAct : AppCompatActivity() {
     var GOOGLE_SIGN_IN_REQUEST_CODE: Int = 1234
     private lateinit var callbackManager: CallbackManager
 
+    lateinit var tracker: GPSTracker
+    var currentLocation: LatLng? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
@@ -63,7 +67,7 @@ class LoginAct : AppCompatActivity() {
 
         // Configure Google Sign In
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken(getString(R.string.default_web_client_id))
+//            .requestIdToken(getString(R.string.default_web_client_id))
             .requestEmail()
             .build()
 
@@ -77,6 +81,14 @@ class LoginAct : AppCompatActivity() {
 
         itit()
 
+
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        tracker = GPSTracker(mContext)
+        currentLocation = LatLng(tracker.latitude, tracker.longitude)
     }
 
     private fun itit() {
@@ -139,8 +151,8 @@ class LoginAct : AppCompatActivity() {
 
         paramHash.put("email", etEmail.text.toString().trim())
         paramHash.put("password", etPassword.text.toString().trim())
-        paramHash.put("lat", "")
-        paramHash.put("lon", "")
+        paramHash.put("lat", currentLocation?.latitude.toString())
+        paramHash.put("lon", currentLocation?.longitude.toString())
         paramHash.put("type", AppConstant.USER)
         paramHash.put("register_id", registerId)
 
@@ -218,6 +230,7 @@ class LoginAct : AppCompatActivity() {
         paramHash.put("lon", "")
         paramHash.put("image", "")
         paramHash.put("type", "USER")
+        paramHash.put("image", image)
         paramHash.put("register_id", registerId)
         paramHash.put("social_id", socialId)
 
@@ -269,8 +282,7 @@ class LoginAct : AppCompatActivity() {
     private fun firebaseAuthWithGoogle(idToken: String?) {
         val credential = GoogleAuthProvider.getCredential(idToken, null)
         mAuth.signInWithCredential(credential)
-            .addOnCompleteListener(
-                this
+            .addOnCompleteListener(this
             ) { task ->
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
@@ -280,14 +292,13 @@ class LoginAct : AppCompatActivity() {
                         Log.e("kjsgdfkjdgsf", "name = " + user.displayName)
                         Log.e("kjsgdfkjdgsf", "email = " + user.email)
                         Log.e("kjsgdfkjdgsf", "Userid = " + user.uid)
-//                        socialLoginCall(
-//                            user.displayName,
-//                            user.email, user.photoUrl.toString(),
-//                            user.uid
-//                        )
+                        socialLoginCall (
+                            user.displayName!!,
+                            user.email, user.photoUrl.toString(),
+                            user.uid
+                        )
                     }
-                } else {
-                }
+                } else {}
             }
     }
 

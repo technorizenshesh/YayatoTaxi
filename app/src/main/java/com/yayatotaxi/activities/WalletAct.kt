@@ -28,11 +28,13 @@ class WalletAct : AppCompatActivity() {
     }
 
     private fun itit() {
+
         ivBack.setOnClickListener { finish() }
 
         cvAddMoney.setOnClickListener { addMoneyDialog() }
 
         cvTransfer.setOnClickListener { tranferMOneyDialog() }
+
     }
 
     private fun addMoneyDialog() {
@@ -42,11 +44,13 @@ class WalletAct : AppCompatActivity() {
             LayoutInflater.from(mContext),
             R.layout.add_money_dialog, null, false
         )
+
         dialog.setContentView(dialogBinding.getRoot())
         dialog.setOnKeyListener { dialog, keyCode, event ->
             if (keyCode == KeyEvent.KEYCODE_BACK && event.action == KeyEvent.ACTION_UP) dialog.dismiss()
             false
         }
+
         dialogBinding.etMoney.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
@@ -61,16 +65,15 @@ class WalletAct : AppCompatActivity() {
             override fun afterTextChanged(s: Editable) {}
         })
 
-        dialogBinding.ivMinus.setOnClickListener { v ->
-            if (!(dialogBinding.etMoney.getText().toString().trim()
-                    .equals("") || dialogBinding.etMoney.getText().toString().trim().equals("0"))
-            ) {
+        dialogBinding.ivMinus.setOnClickListener {
+            if (!(dialogBinding.etMoney.getText().toString().trim().equals("") ||
+                        dialogBinding.etMoney.getText().toString().trim().equals("0"))) {
                 walletTmpAmt = dialogBinding.etMoney.getText().toString().trim().toDouble() - 1
                 dialogBinding.etMoney.setText(walletTmpAmt.toString())
             }
         }
 
-        dialogBinding.ivPlus.setOnClickListener { v ->
+        dialogBinding.ivPlus.setOnClickListener {
             if (TextUtils.isEmpty(dialogBinding.etMoney.getText().toString().trim())) {
                 dialogBinding.etMoney.setText("0")
                 walletTmpAmt = dialogBinding.etMoney.getText().toString().trim().toDouble() + 1
@@ -81,26 +84,26 @@ class WalletAct : AppCompatActivity() {
             }
         }
 
-        dialogBinding.tv699.setOnClickListener { v ->
+        dialogBinding.tv699.setOnClickListener {
             dialogBinding.etMoney.setText("699")
             walletTmpAmt = dialogBinding.etMoney.getText().toString().trim().toDouble()
             dialogBinding.etMoney.setText(walletTmpAmt.toString())
         }
 
-        dialogBinding.tv799.setOnClickListener { v ->
+        dialogBinding.tv799.setOnClickListener {
             dialogBinding.etMoney.setText("799")
             walletTmpAmt = dialogBinding.etMoney.getText().toString().trim().toDouble()
             dialogBinding.etMoney.setText(walletTmpAmt.toString())
         }
 
-        dialogBinding.tv899.setOnClickListener { v ->
+        dialogBinding.tv899.setOnClickListener {
             dialogBinding.etMoney.setText("899")
             walletTmpAmt = dialogBinding.etMoney.getText().toString().trim().toDouble()
             dialogBinding.etMoney.setText(walletTmpAmt.toString())
         }
 
-        dialogBinding.btDone.setOnClickListener { v -> dialog.dismiss() }
-        dialogBinding.tvCancel.setOnClickListener { v -> dialog.dismiss() }
+        dialogBinding.btDone.setOnClickListener {  dialog.dismiss() }
+        dialogBinding.tvCancel.setOnClickListener {  dialog.dismiss() }
         val window = dialog.window
         val wlp = window!!.attributes
         dialog.window!!.setBackgroundDrawableResource(R.color.translucent_black)
@@ -118,8 +121,8 @@ class WalletAct : AppCompatActivity() {
             R.layout.send_money_dialog_new, null, false
         )
         dialog.setContentView(dialogBinding.getRoot())
-        dialogBinding.btDone.setOnClickListener { v -> dialog.dismiss() }
-        dialogBinding.tvCancel.setOnClickListener { v -> dialog.dismiss() }
+        dialogBinding.btDone.setOnClickListener {  dialog.dismiss() }
+        dialogBinding.tvCancel.setOnClickListener {  dialog.dismiss() }
         val window = dialog.window
         val wlp = window!!.attributes
         dialog.window!!.setBackgroundDrawableResource(R.color.translucent_black)

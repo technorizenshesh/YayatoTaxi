@@ -26,15 +26,7 @@ import com.yayatotaxi.models.ModelLogin
 import com.yayatotaxi.utils.*
 import com.yayatotaxi.utils.retrofit.Api
 import com.yayatotaxi.utils.retrofit.ApiFactory
-import kotlinx.android.synthetic.main.activity_sign_up.*
 import kotlinx.android.synthetic.main.activity_update_profiel.*
-import kotlinx.android.synthetic.main.activity_update_profiel.addIcon
-import kotlinx.android.synthetic.main.activity_update_profiel.etAdd1
-import kotlinx.android.synthetic.main.activity_update_profiel.etEmail
-import kotlinx.android.synthetic.main.activity_update_profiel.etFirstName
-import kotlinx.android.synthetic.main.activity_update_profiel.etLastName
-import kotlinx.android.synthetic.main.activity_update_profiel.etPhone
-import kotlinx.android.synthetic.main.activity_update_profiel.ivBack
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -69,6 +61,7 @@ class UpdateProfielAct : AppCompatActivity() {
     }
 
     private fun itit() {
+
         ivBack.setOnClickListener { finish() }
 
         try {

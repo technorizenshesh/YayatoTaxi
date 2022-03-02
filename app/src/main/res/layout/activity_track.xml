@@ -44,8 +44,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:text="Patrick"
                 android:fontFamily="@font/poppins_semibold"
+                android:text=""
                 android:textColor="@color/black"
                 android:textSize="@dimen/_14sdp" />
 
@@ -93,7 +93,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
                             android:fontFamily="@font/poppins_regular"
-                            android:text="Sadan"
+                            android:text=""
                             android:textColor="@color/black"
                             android:textSize="@dimen/_11sdp" />
 
@@ -103,7 +103,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
                             android:fontFamily="@font/poppins_regular"
-                            android:text="$78"
+                            android:text="$0"
                             android:textColor="@color/black"
                             android:textSize="@dimen/_11sdp" />
 
@@ -117,7 +117,7 @@
                             android:gravity="center"
                             android:paddingHorizontal="@dimen/_8sdp"
                             android:paddingVertical="@dimen/_3sdp"
-                            android:text="3 min"
+                            android:text="0 min"
                             android:textColor="@color/white"
                             android:textSize="@dimen/_10sdp"
                             android:textStyle="bold" />
@@ -135,7 +135,7 @@
                     android:layout_marginLeft="@dimen/_20sdp"
                     android:layout_marginTop="@dimen/_5sdp"
                     android:fontFamily="@font/poppins_medium"
-                    android:text="HS785K"
+                    android:text=""
                     android:textColor="@color/black"
                     android:textSize="@dimen/_14sdp" />
 
@@ -168,7 +168,7 @@
                     android:id="@+id/driver_image"
                     android:layout_width="@dimen/_80sdp"
                     android:layout_height="@dimen/_80sdp"
-                    android:src="@drawable/person1"
+                    android:src="@drawable/user_ic"
                     app:civ_border_color="@color/white"
                     app:civ_border_width="@dimen/_10sdp" />
 
@@ -181,7 +181,7 @@
                     android:layout_marginLeft="@dimen/_20sdp"
                     android:layout_marginTop="@dimen/_5sdp"
                     android:fontFamily="@font/poppins_medium"
-                    android:text="Patrick\nVolkswagen Jetta"
+                    android:text="\n"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_12sdp" />
 

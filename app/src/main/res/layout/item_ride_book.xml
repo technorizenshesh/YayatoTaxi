@@ -17,12 +17,16 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/_5sdp"
             android:elevation="@dimen/_5sdp"
+            app:cardBackgroundColor="@color/white"
+            android:id="@+id/cardcar"
             app:cardCornerRadius="@dimen/_10sdp">
 
             <LinearLayout
+                android:id="@+id/layoutbg"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
+                android:background="@color/white"
                 android:padding="@dimen/_7sdp">
 
                 <ImageView
@@ -52,6 +56,7 @@
                     android:textSize="@dimen/_11sdp" />
 
                 <TextView
+                    android:id="@+id/time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"

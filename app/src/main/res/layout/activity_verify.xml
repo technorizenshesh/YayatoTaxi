@@ -21,6 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/ivBack"
+            android:visibility="gone"
             android:layout_marginTop="@dimen/_30sdp"
             android:orientation="vertical"
             android:padding="@dimen/_15sdp">
@@ -73,6 +74,7 @@
                     android:hint="0"
                     android:inputType="number"
                     android:maxLength="1"
+                    android:textColor="@color/black"
                     android:textSize="@dimen/_20sdp" />
 
                 <EditText
@@ -88,6 +90,7 @@
                     android:hint="0"
                     android:inputType="number"
                     android:maxLength="1"
+                    android:textColor="@color/black"
                     android:textSize="@dimen/_20sdp" />
 
                 <EditText

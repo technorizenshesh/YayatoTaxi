@@ -45,9 +45,9 @@ dependencies {
     implementation 'com.makeramen:roundedimageview:2.3.0'
     implementation 'de.hdodenhof:circleimageview:3.1.0'
 
-    implementation 'com.google.firebase:firebase-auth:19.3.1'
-    implementation 'com.google.firebase:firebase-core:17.2.0'
-    implementation 'com.google.android.gms:play-services-auth:18.0.0'
+    implementation 'com.google.firebase:firebase-auth:21.0.1'
+    implementation 'com.google.firebase:firebase-core:20.1.0'
+    implementation 'com.google.android.gms:play-services-auth:20.1.0'
     implementation 'com.facebook.android:facebook-login:[5,6)'
     implementation 'com.github.bumptech.glide:glide:4.12.0'
 

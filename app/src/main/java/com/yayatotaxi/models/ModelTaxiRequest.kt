@@ -50,6 +50,7 @@ class ModelTaxiRequest : Serializable {
         var droplon: String? = null
         var shareride_type: String? = null
         var booktype: String? = null
+        var seats_avaliable_pool:String?=null
         var car_type_id: String? = null
         var car_seats:String? = null
         var booked_seats: String? = null

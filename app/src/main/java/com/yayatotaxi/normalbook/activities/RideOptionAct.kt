@@ -39,6 +39,7 @@ import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -142,8 +143,16 @@ class RideOptionAct : AppCompatActivity(), CarListener {
             val minute = mcurrentTime.get(Calendar.MINUTE)
 
             mTimePicker = TimePickerDialog(this, object : TimePickerDialog.OnTimeSetListener {
-                override fun onTimeSet(view: TimePicker?, hourOfDay: Int, minute: Int) {
-                    etpickupTime.setText(String.format("%d : %d", hourOfDay, minute))
+                override fun onTimeSet(view: TimePicker?, hourOfDay: Int, minuteOfHour: Int) {
+                    val _24HourTime = "" + hourOfDay + ":" + minuteOfHour
+                    val _24HourSDF = SimpleDateFormat("HH:mm")
+                    val _12HourSDF = SimpleDateFormat("hh:mm a")
+                    val _24HourDt: Date = _24HourSDF.parse(_24HourTime)
+                    etpickupTime.setText(_12HourSDF.format(
+                        _24HourDt
+                    )
+//                            String.format("%d : %d", hourOfDay, minute)
+                    )
                 }
             }, hour, minute, false)
             mTimePicker.show()
@@ -174,8 +183,9 @@ class RideOptionAct : AppCompatActivity(), CarListener {
 
         btnBook.setOnClickListener {
             if(bookingType.isChecked){
-                if (etdate.getText().isNotEmpty()&&etpickupTime.getText().isNotEmpty()&&etnoOfSeats.getText().isNotEmpty() ){
-                    startActivity(Intent(mContext, AvailableDriversAct::class.java))
+                if (etdate.text.isNotEmpty()&&etpickupTime.text.isNotEmpty()&&etnoOfSeats.text.isNotEmpty() ){
+                    startActivity(Intent(mContext, AvailableDriversAct::class.java).putExtra("date",etdate.text.toString()).putExtra("noofseats",etnoOfSeats
+                        .text.toString()))
                 }
             }else {
                 if (amount.isNotEmpty() && car_id.isNotEmpty() && paymentType.isNotEmpty()) {
@@ -340,6 +350,7 @@ class RideOptionAct : AppCompatActivity(), CarListener {
             destinationAddress,
             destinationAddressLat,
             destinationAddressLon,
+            "",
             "",
             ""
         )

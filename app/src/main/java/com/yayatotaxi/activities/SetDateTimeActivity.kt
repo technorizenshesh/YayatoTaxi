@@ -188,8 +188,11 @@ class SetDateTimeActivity : AppCompatActivity(),CarOnRentListener {
             modelLogin.getResult()?.id!!,intent.getStringExtra("sourceAddressLat").toString(),
             intent.getStringExtra("sourceAddressLon").toString()
         )
-       Log.e("lat===",intent.getStringExtra("sourceAddressLat").toString())
+        Log.e("date===",binding.etStartDate.text.toString())
+        Log.e("iddd===",modelLogin.getResult()?.id!!)
+
         Log.e("lat===",intent.getStringExtra("sourceAddressLat").toString())
+        Log.e("lon===",intent.getStringExtra("sourceAddressLon").toString())
 
 
         call.enqueue(object : Callback<ResponseBody> {
@@ -225,18 +228,23 @@ class SetDateTimeActivity : AppCompatActivity(),CarOnRentListener {
             update_car_request_statusApi(poolDetails?.id!!,status)
 
         }else{
-            get_car_on_rentApi(poolDetails.id.toString(),status)
+            get_car_on_rentApi(poolDetails.id.toString(),status,poolDetails.user_id.toString())
         }
     }
 
-    private fun get_car_on_rentApi(id: String, status: String) {
+    private fun get_car_on_rentApi(id: String, status: String,driverId: String) {
 
         ProjectUtil.showProgressDialog(mContext, false, getString(R.string.please_wait))
         val api: Api = ApiFactory.getClientWithoutHeader(mContext)!!.create(Api::class.java)
         val call: Call<ResponseBody> = api.add_car_request(
             status,id,
-            modelLogin.getResult()?.id!!
+            modelLogin.getResult()?.id!!,intent.getStringExtra("sourceAddressLat").toString(),
+            intent.getStringExtra("sourceAddressLon").toString()
         )
+        Log.e("status===",status)
+        Log.e("iddddddddd===",id)
+        Log.e("driver_id===",driverId)
+
 
         call.enqueue(object : Callback<ResponseBody> {
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {

@@ -67,9 +67,9 @@ class NormalBookHomeAct : AppCompatActivity() , OnMapReadyCallback {
         tracker = GPSTracker(mContext)
         currentLocation = LatLng(tracker.latitude, tracker.longitude)
         tvFrom.setText(getAddress(currentLocation!!))
-        sourceAddress = tracker.latitude.toString()
-        sourceAddressLat = tracker.longitude.toString()
-        sourceAddressLon = tvFrom.getText().toString()
+        sourceAddressLat   = tracker.latitude.toString()
+        sourceAddressLon  = tracker.longitude.toString()
+        sourceAddress  = tvFrom.getText().toString()
 
         mapFragment = (supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?)!!
         mapFragment.getMapAsync(this)

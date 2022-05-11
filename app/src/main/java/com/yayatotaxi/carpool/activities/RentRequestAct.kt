@@ -120,7 +120,7 @@ class RentRequestAct : AppCompatActivity(), CarOnRentListener {
         val api: Api = ApiFactory.getClientWithoutHeader(mContext)!!.create(Api::class.java)
         val call: Call<ResponseBody> = api.add_car_request(
             status,id,
-            modelLogin.getResult()?.id!!
+            modelLogin.getResult()?.id!!,"",""
         )
 
         call.enqueue(object : Callback<ResponseBody> {

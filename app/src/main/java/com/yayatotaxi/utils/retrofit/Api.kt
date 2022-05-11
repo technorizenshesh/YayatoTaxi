@@ -325,7 +325,11 @@ interface Api {
     fun add_car_request(
         @Field("status") status: String,
         @Field("car_detail_id") car_detail_id: String,
-        @Field("driver_id") driver_id: String
+        @Field("driver_id") driver_id: String,
+        @Field("lat") lat: String,
+        @Field("lon") lon: String
+
+
     ): Call<ResponseBody>
 
 

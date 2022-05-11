@@ -76,7 +76,19 @@ class AdapterCarOnRent(
                 holder.binding.tvStatus.setTextColor(ContextCompat.getColor(mContext, R.color.red))
                 holder.binding.btTrackDriver.visibility = View.GONE
                 holder.binding.btSend.visibility = View.GONE
-            } else if ("Accept" == data.request_detailss?.get(0)?.status) {
+            }
+
+
+         else   if ("Pending" == data.request_detailss?.get(0)?.status) {
+                holder.binding.tvStatus.text = "Pending"
+                holder.binding.btTrackDriver.visibility = View.VISIBLE
+                holder.binding.btSend.visibility = View.GONE
+            }
+
+
+
+
+            else if ("Accept" == data.request_detailss?.get(0)?.status) {
                 holder.binding.tvStatus.text = data.request_detailss?.get(0)?.status
                 holder.binding.tvStatus.setTextColor(
                     ContextCompat.getColor(

@@ -1,6 +1,6 @@
 package com.yayatotaxi.models
 
-import com.yayatopartnerapp.models.ModelTaxiRequest
+import com.yayatotaxi.models.ModelTaxiRequest
 import java.io.Serializable
 import java.util.ArrayList
 

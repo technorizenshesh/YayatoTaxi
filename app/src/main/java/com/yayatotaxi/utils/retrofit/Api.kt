@@ -17,6 +17,19 @@ interface Api {
     fun updateLocation(@FieldMap params: Map<String, String>): Call<Map<String, String>>
 
     @FormUrlEncoded
+    @POST("get_my_transaction")
+    fun getTransactionApiCall(@FieldMap params: Map<String, String>): Call<ResponseBody>
+
+
+    @FormUrlEncoded
+    @POST("wallet_transfer")
+    fun walletTransferApiCall(@FieldMap params: Map<String, String>): Call<ResponseBody>
+
+    @FormUrlEncoded
+    @POST("add_wallet")
+    fun addWalletApiCall(@FieldMap params: Map<String, String>): Call<ResponseBody>
+
+    @FormUrlEncoded
     @POST("forgot_password")
     fun forgotPass(@FieldMap params: Map<String, String>): Call<ResponseBody>
 
@@ -257,4 +270,67 @@ interface Api {
         @Field("driver_id") driver_id: String,
         @Field("timezone") timezone: String
     ): Call<ResponseBody>
+
+    @FormUrlEncoded
+    @POST("add_booking_request_new")
+    fun addBookingRequestNew(
+        @Field("user_id") user_id: String,
+        @Field("booking_request_id") booking_request_id: String,
+        @Field("date") date: String,
+        @Field("time") time: String,
+        @Field("noofseats") noofseats: String,
+        @Field("pickuplocation") pickuplocation: String,
+        @Field("pickuplocation_lat") pickuplocation_lat: String,
+        @Field("pickuplocation_lon") pickuplocation_lon: String,
+        @Field("droplocation") droplocation: String,
+        @Field("droplocation_lat") droplocation_lat: String,
+        @Field("droplocation_lon") droplocation_lon: String,
+        @Field("status") status: String
+    ): Call<ResponseBody>
+
+
+
+    @FormUrlEncoded
+    @POST("get_new_to_old_request")
+    fun get_new_to_old_request(
+        @Field("user_id") user_id: String
+    ): Call<ResponseBody>
+
+    @FormUrlEncoded
+    @POST("get_car_detial")
+    fun get_car_detial(
+        @Field("date") date: String,
+        @Field("driver_id") driver_id: String,
+        @Field("lat") lat: String,
+        @Field("lon") lon: String
+
+    ): Call<ResponseBody>
+
+    @FormUrlEncoded
+    @POST("get_car_detial_new")
+    fun get_car_detial_new(
+        @Field("driver_id") driver_id: String
+    ): Call<ResponseBody>
+
+
+    @FormUrlEncoded
+    @POST("update_car_request_status")
+    fun update_car_request_status(
+        @Field("id") id: String,
+        @Field("status") status: String
+    ): Call<ResponseBody>
+
+    @FormUrlEncoded
+    @POST("add_car_request")
+    fun add_car_request(
+        @Field("status") status: String,
+        @Field("car_detail_id") car_detail_id: String,
+        @Field("driver_id") driver_id: String
+    ): Call<ResponseBody>
+
+
+    @FormUrlEncoded
+    @POST("get_lat_lon")
+    fun get_lat_lon(@Field("user_id") user_id: String): Call<ResponseBody>
+
 }

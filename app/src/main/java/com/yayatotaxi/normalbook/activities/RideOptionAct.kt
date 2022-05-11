@@ -5,6 +5,8 @@ import android.app.Dialog
 import android.app.TimePickerDialog
 import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -16,13 +18,20 @@ import android.widget.TimePicker
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.*
 import com.google.gson.Gson
-import com.yayatopartnerapp.models.ModelCarsType
+import com.yayatotaxi.models.ModelCarsType
 import com.yayatotaxi.R
 import com.yayatotaxi.adapters.AdapterRideOption
 import com.yayatotaxi.carpool.activities.AvailableDriversAct
 import com.yayatotaxi.carpool.activities.PoolRequestAct
 import com.yayatotaxi.databinding.DialogSearchDriverBinding
+import com.yayatotaxi.directionhelpers.FetchURL
+import com.yayatotaxi.directionhelpers.TaskLoadedCallback
 import com.yayatotaxi.listener.CarListener
 import com.yayatotaxi.models.ModelLogin
 import com.yayatotaxi.normalbook.adapters.AdapterCarTypes
@@ -44,9 +53,13 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 
-class RideOptionAct : AppCompatActivity(), CarListener {
+class RideOptionAct : AppCompatActivity(), CarListener, OnMapReadyCallback, TaskLoadedCallback {
     lateinit var modelLogin: ModelLogin
     lateinit var sharedPref: SharedPref
+    lateinit var mapFragment: SupportMapFragment
+    lateinit var googleMap: GoogleMap
+
+
 
     var mContext: Context = this@RideOptionAct
     lateinit var dialogSerach: Dialog
@@ -67,6 +80,17 @@ class RideOptionAct : AppCompatActivity(), CarListener {
     var destinationAddressLat: String = ""
     var destinationAddressLon: String = ""
 
+    private var currentPolyline: Polyline? = null
+
+    private var place1: MarkerOptions? = null
+    private var place2: MarkerOptions? = null
+
+
+    private var latLngSource: LatLng? = null
+    private var latLngDestination: LatLng? = null
+
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ride_option)
@@ -78,6 +102,8 @@ class RideOptionAct : AppCompatActivity(), CarListener {
         destinationAddress = intent.getStringExtra("destinationAddress").toString()
         destinationAddressLat = intent.getStringExtra("destinationAddressLat").toString()
         destinationAddressLon = intent.getStringExtra("destinationAddressLon").toString()
+        latLngSource = LatLng(sourceAddressLat.toDouble(),sourceAddressLon.toDouble())
+        latLngDestination = LatLng(destinationAddressLat.toDouble(),destinationAddressLon.toDouble())
 
 
         if(intent.getStringExtra("type").equals("vtc")) {
@@ -117,6 +143,10 @@ class RideOptionAct : AppCompatActivity(), CarListener {
         })
 
         itit()
+
+        mapFragment = (supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?)!!
+        mapFragment.getMapAsync(this)
+
 
 
         etdate.setOnClickListener {
@@ -184,8 +214,17 @@ class RideOptionAct : AppCompatActivity(), CarListener {
         btnBook.setOnClickListener {
             if(bookingType.isChecked){
                 if (etdate.text.isNotEmpty()&&etpickupTime.text.isNotEmpty()&&etnoOfSeats.text.isNotEmpty() ){
-                    startActivity(Intent(mContext, AvailableDriversAct::class.java).putExtra("date",etdate.text.toString()).putExtra("noofseats",etnoOfSeats
-                        .text.toString()))
+                    startActivity(Intent(mContext, AvailableDriversAct::class.java)
+                        .putExtra("date",etdate.text.toString())
+                        .putExtra("time",etpickupTime.text.toString())
+                        .putExtra("noofseats",etnoOfSeats.text.toString())
+                        .putExtra("sourceAddress",sourceAddress)
+                        .putExtra("sourceAddressLat",sourceAddressLat)
+                        .putExtra("sourceAddressLon",sourceAddressLon)
+                        .putExtra("destinationAddress",destinationAddress)
+                        .putExtra("destinationAddressLat",destinationAddressLat)
+                        .putExtra("destinationAddressLon",destinationAddressLon)
+                    )
                 }
             }else {
                 if (amount.isNotEmpty() && car_id.isNotEmpty() && paymentType.isNotEmpty()) {
@@ -302,6 +341,7 @@ class RideOptionAct : AppCompatActivity(), CarListener {
                     if (jsonObject.getString("status") == "1") {
                         val modelCarsType: ModelCarsType =
                             Gson().fromJson(responseString, ModelCarsType::class.java)
+                        taxiNamesList = ArrayList<ModelCarsType.Result>()
                         for (item in modelCarsType.getResult()!!) {
                             taxiNamesList.add(item!!)
                         }
@@ -386,5 +426,97 @@ class RideOptionAct : AppCompatActivity(), CarListener {
 
         })
     }
+
+
+    override fun onTaskDone(vararg values: Any?) {
+        val height = 95
+        val width = 65
+        val b = BitmapFactory.decodeResource(resources, R.drawable.ic_setloc)
+        val smallMarker = Bitmap.createScaledBitmap(b, width, height, false)
+        val smallMarkerIcon = BitmapDescriptorFactory.fromBitmap(smallMarker)
+
+
+
+        if (currentPolyline != null) {
+            currentPolyline!!.remove()
+            googleMap!!.clear()
+        }
+
+        place1 = MarkerOptions().position(
+            latLngSource!!
+        ).title(
+            "Pickup Location: "
+        )
+            .icon(smallMarkerIcon)
+        googleMap.addMarker(place1!!)
+        animateCamera(
+            latLngSource!!)
+
+        place2 = MarkerOptions ().position(
+            latLngDestination!!
+        ).title(
+            "Drop Off Location: "
+        )
+            .icon(smallMarkerIcon)
+
+        googleMap . addMarker (place2!!)
+
+
+        currentPolyline = googleMap . addPolyline ((values[0] as PolylineOptions?)!!)
+    }
+
+    private fun getUrl(
+        origin: LatLng,
+        dest: LatLng,
+        directionMode: String
+    ): String? {
+        // Origin of route
+        val str_origin = "origin=" + origin.latitude + "," + origin.longitude
+        // Destination of route
+        val str_dest = "destination=" + dest.latitude + "," + dest.longitude
+        // Mode
+        val mode = "mode=$directionMode"
+        // Building the parameters to the web service
+        val parameters = "$str_origin&$str_dest&$mode"
+        // Output format
+        val output = "json"
+        // Building the url to the web service
+                Log.e("path url","https://maps.googleapis.com/maps/api/directions/$output?$parameters&key=AIzaSyC-QuuXBR3Yunb-WlpEE8Ja2dxNGCiVboM")
+//        String url = "https://maps.googleapis.com/maps/api/directions/json?origin="+latitude+","+longitude+"&destination="+latitudeStr+","+longitudeStr+"&key=" + getString(R.string.google_maps_key);
+        return "https://maps.googleapis.com/maps/api/directions/$output?$parameters&key=AIzaSyC-QuuXBR3Yunb-WlpEE8Ja2dxNGCiVboM"
+    }
+
+    override fun onMapReady(maps: GoogleMap) {
+        googleMap = maps
+
+        if (latLngSource != null && latLngDestination != null) {
+            FetchURL(this@RideOptionAct).execute(
+                getUrl(
+                    latLngSource!!,
+                    latLngDestination!!,
+                    "driving"
+                ), "driving"
+            )
+        }
+
+
+    }
+
+
+
+    private fun animateCamera(location: LatLng) {
+        googleMap.animateCamera(
+            CameraUpdateFactory.newCameraPosition(
+                getCameraPositionWithBearing(
+                    location
+                )
+            )
+        )
+    }
+
+    private fun getCameraPositionWithBearing(latLng: LatLng): CameraPosition {
+        return CameraPosition.Builder().target(latLng).zoom(16f).build()
+    }
+
 
 }

@@ -1,6 +1,6 @@
 package com.yayatotaxi.listener
 
-import com.yayatopartnerapp.models.ModelTaxiRequest
+import com.yayatotaxi.models.ModelTaxiRequest
 
 
 interface PoolCarListener {

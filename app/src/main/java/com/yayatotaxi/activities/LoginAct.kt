@@ -280,26 +280,29 @@ class LoginAct : AppCompatActivity() {
     }
 
     private fun firebaseAuthWithGoogle(idToken: String?) {
-        val credential = GoogleAuthProvider.getCredential(idToken, null)
-        mAuth.signInWithCredential(credential)
-            .addOnCompleteListener(this
-            ) { task ->
-                if (task.isSuccessful) {
-                    // Sign in success, update UI with the signed-in user's information
-                    val user = mAuth.currentUser
-                    if (user != null) {
-                        Log.e("kjsgdfkjdgsf", "profilePhoto = " + user.photoUrl)
-                        Log.e("kjsgdfkjdgsf", "name = " + user.displayName)
-                        Log.e("kjsgdfkjdgsf", "email = " + user.email)
-                        Log.e("kjsgdfkjdgsf", "Userid = " + user.uid)
-                        socialLoginCall (
-                            user.displayName!!,
-                            user.email, user.photoUrl.toString(),
-                            user.uid
-                        )
+            val credential = GoogleAuthProvider.getCredential(idToken!!, null)
+            mAuth.signInWithCredential(credential)
+                .addOnCompleteListener(
+                    this
+                ) { task ->
+                    if (task.isSuccessful) {
+                        // Sign in success, update UI with the signed-in user's information
+                        val user = mAuth.currentUser
+                        if (user != null) {
+                            Log.e("kjsgdfkjdgsf", "profilePhoto = " + user.photoUrl)
+                            Log.e("kjsgdfkjdgsf", "name = " + user.displayName)
+                            Log.e("kjsgdfkjdgsf", "email = " + user.email)
+                            Log.e("kjsgdfkjdgsf", "Userid = " + user.uid)
+                            socialLoginCall(
+                                user.displayName!!,
+                                user.email, user.photoUrl.toString(),
+                                user.uid
+                            )
+                        }
+                    } else {
                     }
-                } else {}
-            }
+                }
+
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

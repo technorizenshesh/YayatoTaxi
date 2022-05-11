@@ -2,6 +2,7 @@ package com.yayatotaxi.activities
 
 import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.text.Editable
@@ -10,6 +11,11 @@ import android.text.TextWatcher
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
+import com.google.android.gms.auth.api.phone.SmsRetriever
+import com.google.android.gms.tasks.OnFailureListener
+import com.google.android.gms.tasks.OnSuccessListener
+import com.google.android.gms.tasks.Task
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.*
 import com.google.firebase.auth.PhoneAuthProvider.ForceResendingToken
@@ -33,7 +39,9 @@ import java.io.File
 import java.util.*
 import java.util.concurrent.TimeUnit
 
-class VerifyAct : AppCompatActivity() {
+
+class VerifyAct : AppCompatActivity(), MySMSBroadcastReceiver.OTPReceiveListener {
+    private var smsReceiver: MySMSBroadcastReceiver? = null
 
     var mContext: Context = this@VerifyAct
     var type = ""
@@ -51,19 +59,79 @@ class VerifyAct : AppCompatActivity() {
         sharedPref = SharedPref(mContext)
         mAuth = FirebaseAuth.getInstance()
 
-        mobile = intent.getStringExtra("mobile")!!
+        mobile = /*"+917697925028"*/intent.getStringExtra("mobile")!!
         paramHash = intent.getSerializableExtra("resgisterHashmap") as HashMap<String, String>
         fileHashMap = intent.getSerializableExtra("fileHashMap") as HashMap<String, File>
 
         if (InternetConnection.checkConnection(mContext)){
-//            sendVerificationCode()
-            signupCallApi()
+            sendVerificationCode()
+//            signupCallApi()
         }
         else {
             MyApplication.showConnectionDialog(mContext)
         }
 
         itit()
+
+
+
+
+        val appSignature = AppSignatureHelper(this)
+        Log.v("AppSignature", appSignature.appSignatures.toString())
+        startSMSListener()
+    }
+    override fun onOTPReceived(otp: String) {
+        showToast("OTP Received: " + otp)
+//        editText.setText(otp)
+        if (smsReceiver != null) {
+            LocalBroadcastManager.getInstance(this).unregisterReceiver(smsReceiver!!)
+        }
+    }
+
+    override fun onOTPTimeOut() {
+        showToast("OTP Time out")
+    }
+
+
+    override fun onDestroy() {
+        super.onDestroy()
+        if (smsReceiver != null) {
+            LocalBroadcastManager.getInstance(this).unregisterReceiver(smsReceiver!!)
+        }
+    }
+    private fun showToast(msg: String) {
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
+    }
+    /**
+     * Starts SmsRetriever, which waits for ONE matching SMS message until timeout
+     * (5 minutes). The matching SMS message will be sent via a Broadcast Intent with
+     * action SmsRetriever#SMS_RETRIEVED_ACTION.
+     */
+    private fun startSMSListener() {
+        try {
+            smsReceiver = MySMSBroadcastReceiver()
+            smsReceiver!!.initOTPListener(this)
+
+            val intentFilter = IntentFilter()
+            intentFilter.addAction(SmsRetriever.SMS_RETRIEVED_ACTION)
+            this.registerReceiver(smsReceiver, intentFilter)
+
+            val client = SmsRetriever.getClient(this)
+
+            val task = client.startSmsRetriever()
+            task.addOnSuccessListener {
+                // API successfully started
+                Log.d("task", "addOnSuccessListener")
+            }
+
+            task.addOnFailureListener {
+                // Fail to start API
+                Log.d("task", "addOnFailureListener")
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+
     }
 
     private fun itit() {
@@ -176,6 +244,7 @@ class VerifyAct : AppCompatActivity() {
                 override fun onVerificationFailed(e: FirebaseException) {
                     ProjectUtil.pauseProgressDialog()
                     Toast.makeText(mContext, "Failed", Toast.LENGTH_SHORT).show()
+                    e.printStackTrace();
                 }
 
             })
@@ -195,6 +264,7 @@ class VerifyAct : AppCompatActivity() {
                     ProjectUtil.pauseProgressDialog()
                     Toast.makeText(mContext, "Failed", Toast.LENGTH_SHORT).show()
                     if (task.exception is FirebaseAuthInvalidCredentialsException) {
+                        task.exception
                     }
                 }
             }

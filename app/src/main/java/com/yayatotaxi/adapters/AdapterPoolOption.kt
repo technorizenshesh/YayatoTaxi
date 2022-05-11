@@ -10,13 +10,12 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.yayatopartnerapp.models.ModelCarsType
-import com.yayatopartnerapp.models.ModelTaxiRequest
 import com.yayatotaxi.R
 import com.yayatotaxi.databinding.ItemPoolBookBinding
 import com.yayatotaxi.databinding.ItemRideBookBinding
 import com.yayatotaxi.listener.CarListener
 import com.yayatotaxi.listener.PoolCarListener
+import com.yayatotaxi.models.ModelTaxiRequest
 import com.yayatotaxi.utils.AppConstant
 import com.yayatotaxi.utils.ProjectUtil
 import com.yayatotaxi.utils.SharedPref

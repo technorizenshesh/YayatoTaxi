@@ -9,7 +9,7 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.google.gson.Gson
-import com.yayatopartnerapp.models.ModelTaxiRequest
+import com.yayatotaxi.models.ModelTaxiRequest
 import com.yayatotaxi.R
 import com.yayatotaxi.utils.AppConstant
 import com.yayatotaxi.utils.ProjectUtil

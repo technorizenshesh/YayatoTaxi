@@ -1,4 +1,4 @@
-package com.yayatopartnerapp.models
+package com.yayatotaxi.models
 
 import java.io.Serializable
 import java.util.ArrayList

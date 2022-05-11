@@ -15,43 +15,166 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="@dimen/_10sdp">
-
-            <RelativeLayout
+            <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <View
+                    android:layout_width="@dimen/_10sdp"
+                    android:layout_height="@dimen/_10sdp"
+                    android:background="@drawable/green_oval" />
+
+                <TextView
+                    android:id="@+id/tvPickup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/_5sdp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:text="53, Kamdhenu Shopping Centre, Lokhandwala Complex, Andheri (west)"
+                    android:textColor="@color/textColor"
+                    android:textSize="@dimen/_11sdp" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_marginTop="@dimen/_5sdp"
                 android:layout_height="wrap_content">
 
-                <TextView
-                    android:id="@+id/tvDateTime"
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/car"
+                    android:layout_width="@dimen/_60sdp"
+                    android:layout_height="@dimen/_35sdp"
+                    android:layout_centerInParent="true"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:background="@drawable/car"
+                    android:padding="@dimen/_40sdp" />
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tvDateTime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_medium"
+                        android:text="23-03-2021  11:30"
+                        android:textColor="@color/textColor"
+                        android:textSize="@dimen/_12sdp" />
+
+                    <TextView
+                        android:id="@+id/noofseats"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_medium"
+                        android:text="2 seats"
+                        android:textColor="@color/textColor"
+                        android:textSize="@dimen/_12sdp" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:visibility="gone"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tvStatuss"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_medium"
+                        android:text="Complete"
+                        android:textAllCaps="true"
+                        android:textColor="@color/green_spalsh"
+                        android:textSize="@dimen/_12sdp" />
+
+                    <TextView
+                        android:id="@+id/tvAmount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_medium"
+                        android:text="10"
+                        android:textAllCaps="true"
+                        android:textColor="@color/green_spalsh"
+                        android:textSize="@dimen/_12sdp" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+            <TextView
+                android:id="@+id/tvStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:fontFamily="@font/poppins_medium"
+                android:text="Pending"
+                android:textColor="@color/green_pur"
+                android:textSize="@dimen/_13sdp"
+                android:textStyle="bold" />
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/btTrackDriver"
+                    android:layout_width="0dp"
+                    android:layout_weight="0.6"
+                    android:layout_height="@dimen/_30sdp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:gravity="center"
+                    android:layout_marginBottom="@dimen/_5sdp"
+                    android:background="@drawable/login_bt_back"
                     android:fontFamily="@font/poppins_medium"
-                    android:text="23-03-2021  11:30"
-                    android:textColor="@color/textColor"
+                    android:padding="@dimen/_2sdp"
+                    android:text="send request"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
                     android:textSize="@dimen/_12sdp" />
 
                 <TextView
-                    android:id="@+id/tvStatus"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
+                    android:id="@+id/btSend"
+                    android:layout_width="0dp"
+                    android:layout_weight="0.6"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:layout_height="@dimen/_30sdp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:gravity="center"
+                    android:visibility="gone"
+                    android:layout_marginBottom="@dimen/_5sdp"
+                    android:background="@drawable/red_round_back"
                     android:fontFamily="@font/poppins_medium"
-                    android:text="Complete"
-                    android:textAllCaps="true"
-                    android:textColor="@color/green_spalsh"
+                    android:padding="@dimen/_2sdp"
+                    android:text="cancel"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
                     android:textSize="@dimen/_12sdp" />
 
-            </RelativeLayout>
-
+            </androidx.appcompat.widget.LinearLayoutCompat>
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_1sdp"
                 android:layout_marginTop="@dimen/_10sdp"
+                android:visibility="gone"
                 android:background="@color/light_gray" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
+                android:visibility="gone"
                 android:weightSum="1">
 
                 <RelativeLayout
@@ -160,27 +283,13 @@
                     android:layout_height="match_parent"
                     android:layout_weight=".15">
 
-                    <ImageView
+                    <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/goDetail"
                         android:layout_width="@dimen/_35sdp"
                         android:layout_height="@dimen/_35sdp"
                         android:layout_centerInParent="true"
-                        android:adjustViewBounds="true"
                         android:background="@drawable/right_arrow_black"
-                        android:scaleType="fitCenter" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/goDetail"
-                        android:layout_marginTop="@dimen/_15sdp"
-                        android:fontFamily="@font/poppins_regular"
-                        android:gravity="center_horizontal"
-                        android:text="120$"
-                        android:textColor="@color/textColor"
-                        android:textSize="@dimen/_12sdp"
-                        android:visibility="gone" />
-
+                        android:padding="@dimen/_40sdp" />
 
                 </RelativeLayout>
 

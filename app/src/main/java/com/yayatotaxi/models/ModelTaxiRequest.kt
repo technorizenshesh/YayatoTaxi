@@ -1,4 +1,4 @@
-package com.yayatopartnerapp.models
+package com.yayatotaxi.models
 
 import com.yayatotaxi.models.ModelUserDetail
 import java.io.Serializable
@@ -38,7 +38,6 @@ class ModelTaxiRequest : Serializable {
         var id: String? = null
         var code: String? = null
         var title: String? = null
-
         var user_id: String? = null
         var driver_id: String? = null
         var driver_ids: String? = null
@@ -81,8 +80,23 @@ class ModelTaxiRequest : Serializable {
         var distance: String? = null
         var estimate_time: String? = null
         var car_name: String? = null
-
+        var pool_details: ArrayList<PoolDetails>? = null
         var car_number:String?=null
+        class PoolDetails : Serializable {
+            var id: String? = null
+            var user_id: String? = null
+            var booking_request_id: String? = null
+            var date: String? = null
+            var time: String? = null
+            var noofseats: String? = null
+            var pickuplocation: String? = null
+            var pickuplocation_lat: String? = null
+            var pickuplocation_lon: String? = null
+            var droplocation: String? = null
+            var droplocation_lat:String? = null
+            var droplocation_lon: String? = null
+            var status: String? = null
+        }
     }
 
 }

@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">YayatoTaxi</string>
     <string name="api_key" translatable="false">AIzaSyA9RhUjM4t6hd1FZn671IXvE4m4Ijw87T0</string>
+    <string name="map_key">AIzaSyAXTJrvnDTC8AjYzK2dPatsSAMJaTIc-c0</string>
+
     <string name="facebook_app_id">906560946896016</string>
     <string name="fb_login_protocol_scheme">fb906560946896016</string>
     <string name="logo">Logo</string>
@@ -132,5 +134,11 @@
     <string name="age">Age :</string>
     <string name="waiting_for_driver">Waiting for Driver..</string>
     <string name="chat"><u>Chat</u></string>
-
+    <string name="select_time_when_you_want_your_vehicle_for_service">Select Start And End Date Time When You Want for Vehicle</string>
+    <string name="start_time">Start Time</string>
+    <string name="end_time">End Time</string>
+    <string name="enter_email">Please enter email</string>
+    <string name="please_enter_amount">Please enter amount</string>
+    <string name="invalid_email">Invalid Email</string>
+    <string name="please_enter_valid_amount">Please enter valid amount</string>
 </resources>

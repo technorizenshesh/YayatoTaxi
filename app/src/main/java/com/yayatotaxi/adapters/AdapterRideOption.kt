@@ -8,7 +8,7 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.yayatopartnerapp.models.ModelCarsType
+import com.yayatotaxi.models.ModelCarsType
 import com.yayatotaxi.R
 import com.yayatotaxi.databinding.ItemRideBookBinding
 import com.yayatotaxi.listener.CarListener

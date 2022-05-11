@@ -15,18 +15,17 @@ import androidx.core.app.ActivityCompat
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
 import com.bumptech.glide.Glide
-import com.google.android.gms.maps.CameraUpdateFactory
-import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.OnMapReadyCallback
-import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.*
 import com.google.gson.Gson
-import com.yayatopartnerapp.models.ModelTaxiRequest
 import com.yayatotaxi.R
 import com.yayatotaxi.carpool.activities.CarPoolHomeAct
 import com.yayatotaxi.carpool.activities.PoolRequestAct
+import com.yayatotaxi.carpool.activities.RentRequestAct
 import com.yayatotaxi.databinding.ActivityHomeBinding
 import com.yayatotaxi.models.ModelLogin
+import com.yayatotaxi.models.ModelTaxiRequest
 import com.yayatotaxi.normalbook.activities.NormalBookHomeAct
 import com.yayatotaxi.normalbook.activities.TrackAct
 import com.yayatotaxi.utils.*
@@ -39,11 +38,14 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class HomeAct : AppCompatActivity(), OnMapReadyCallback {
+
+class HomeAct : AppCompatActivity(), OnMapReadyCallback/*OnStreetViewPanoramaReadyCallback*/ {
 
     var mContext: Context = this@HomeAct
     lateinit var binding: ActivityHomeBinding
     lateinit var mapFragment: SupportMapFragment
+    private var mStreetViewPanorama: StreetViewPanorama? = null
+
     lateinit var sharedPref: SharedPref
     lateinit var modelLogin: ModelLogin
     lateinit var tracker: GPSTracker
@@ -51,6 +53,8 @@ class HomeAct : AppCompatActivity(), OnMapReadyCallback {
     lateinit var googleMap: GoogleMap
     var currentLocationMarker: Marker? = null
     var requestId:String=""
+
+    lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_home)
@@ -58,6 +62,32 @@ class HomeAct : AppCompatActivity(), OnMapReadyCallback {
 
         modelLogin = sharedPref.getUserDetails(AppConstant.USER_DETAILS)
         itit()
+
+
+//        // Construct a FusedLocationProviderClient.
+//        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
+//
+//        if (ActivityCompat.checkSelfPermission(
+//                this,
+//                Manifest.permission.ACCESS_FINE_LOCATION
+//            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+//                this,
+//                Manifest.permission.ACCESS_COARSE_LOCATION
+//            ) != PackageManager.PERMISSION_GRANTED
+//        ) {
+//            // TODO: Consider calling
+//            //    ActivityCompat#requestPermissions
+//            // here to request the missing permissions, and then overriding
+//            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+//            //                                          int[] grantResults)
+//            // to handle the case where the user grants the permission. See the documentation
+//            // for ActivityCompat#requestPermissions for more details.
+//            return
+//        }
+//
+//        currentLocation = LatLng(fusedLocationProviderClient.lastLocation.result.latitude, fusedLocationProviderClient.lastLocation.result.longitude)
+
+
     }
 
     override fun onResume() {
@@ -79,10 +109,19 @@ class HomeAct : AppCompatActivity(), OnMapReadyCallback {
         getCurrentTaxiBookingApi()
     }
 
+
+
+
+
     private fun itit() {
 
         mapFragment = (supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?)!!
         mapFragment.getMapAsync(this)
+
+//        val streetViewFragment = supportFragmentManager
+//            .findFragmentById(R.id.map) as SupportStreetViewPanoramaFragment?
+//        streetViewFragment!!.getStreetViewPanoramaAsync(this)
+
 
         binding.chlidDashboard.btnAddChild.setOnClickListener {
             startActivity(Intent(mContext, SchoolRideAct::class.java))
@@ -98,6 +137,7 @@ class HomeAct : AppCompatActivity(), OnMapReadyCallback {
                 .putExtra("type", "classic")
             )
         }
+
 
         binding.chlidDashboard.cvBookNow.setOnClickListener {
             startActivity(
@@ -129,6 +169,11 @@ class HomeAct : AppCompatActivity(), OnMapReadyCallback {
         binding.childNavDrawer.tvPoolRequest.setOnClickListener {
             binding.drawerLayout.closeDrawer(GravityCompat.START)
             startActivity(Intent(mContext, PoolRequestAct::class.java))
+        }
+
+        binding.childNavDrawer.tvRentRequest.setOnClickListener {
+            binding.drawerLayout.closeDrawer(GravityCompat.START)
+            startActivity(Intent(mContext, RentRequestAct::class.java))
         }
 
         binding.childNavDrawer.tvWallet.setOnClickListener {
@@ -176,13 +221,13 @@ class HomeAct : AppCompatActivity(), OnMapReadyCallback {
                 if (googleMap != null) {
                     val height = 95
                     val width = 65
-                    val b = BitmapFactory.decodeResource(resources, R.drawable.car_top)
+                    val b = BitmapFactory.decodeResource(resources, R.drawable.ic_setloc)
                     val smallMarker = Bitmap.createScaledBitmap(b, width, height, false)
                     val smallMarkerIcon = BitmapDescriptorFactory.fromBitmap(smallMarker)
-//                    currentLocationMarker = googleMap.addMarker(
-//                        MarkerOptions().position(currentLocation).title("My Location")
-//                            .icon(smallMarkerIcon)
-//                    )
+                    currentLocationMarker = googleMap.addMarker(
+                        MarkerOptions().position(currentLocation).title("My Location")
+                            .icon(smallMarkerIcon)
+                    )
                     animateCamera(currentLocation)
                 }
             } else {
@@ -257,6 +302,7 @@ class HomeAct : AppCompatActivity(), OnMapReadyCallback {
 
                         }else{
                             binding.chlidDashboard.layoutDriver.visibility=View.GONE
+
                         }
 
 //                        if (modelTaxiRequest.getResult()?.get(0)?.status.equals("Pending")) {
@@ -288,8 +334,34 @@ class HomeAct : AppCompatActivity(), OnMapReadyCallback {
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
 //                ProjectUtil.pauseProgressDialog()
                 Log.e("Exception", "Throwable = " + t.message)
+
+
             }
 
         })
     }
+
+//    override fun onStreetViewPanoramaReady(streetViewPanorama: StreetViewPanorama) {
+//        mStreetViewPanorama = streetViewPanorama;
+//        streetViewPanorama.setPosition(currentLocation!!, StreetViewSource.OUTDOOR)
+//        streetViewPanorama.setStreetNamesEnabled(true);
+//        streetViewPanorama.setPanningGesturesEnabled(true);
+//        streetViewPanorama.setZoomGesturesEnabled(true);
+//        streetViewPanorama.setUserNavigationEnabled(true);
+//        streetViewPanorama.animateTo(
+//            StreetViewPanoramaCamera.Builder().orientation(StreetViewPanoramaOrientation(20F, 20F))
+//                .zoom(streetViewPanorama.panoramaCamera.zoom)
+//                .build(), 2000
+//        )
+//
+//        streetViewPanorama.setOnStreetViewPanoramaChangeListener(panoramaChangeListener)
+//    }
+//    private val panoramaChangeListener =
+//        OnStreetViewPanoramaChangeListener { streetViewPanoramaLocation ->
+//            Toast.makeText(
+//                applicationContext,
+//                "Lat: " + streetViewPanoramaLocation.position.latitude + " Lng: " + streetViewPanoramaLocation.position.longitude,
+//                Toast.LENGTH_SHORT
+//            ).show()
+//        }
 }

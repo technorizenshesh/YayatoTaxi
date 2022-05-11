@@ -7,10 +7,10 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import com.google.gson.Gson
-import com.yayatopartnerapp.models.ModelTaxiRequest
 import com.yayatotaxi.R
 import com.yayatotaxi.adapters.AdapterOfferPool
 import com.yayatotaxi.models.ModelLogin
+import com.yayatotaxi.models.ModelTaxiRequest
 import com.yayatotaxi.utils.AppConstant
 import com.yayatotaxi.utils.ProjectUtil
 import com.yayatotaxi.utils.SharedPref
@@ -60,9 +60,8 @@ class PoolRequestAct : AppCompatActivity() {
     private fun getBookingHistoryPoolApi() {
         ProjectUtil.showProgressDialog(mContext, false, getString(R.string.please_wait))
         val api: Api = ApiFactory.getClientWithoutHeader(mContext)!!.create(Api::class.java)
-        val call: Call<ResponseBody> = api.getBookingHistoryPool(
-            modelLogin.getResult()?.id.toString(),
-            AppConstant.USER
+        val call: Call<ResponseBody> = api.get_new_to_old_request(
+            modelLogin.getResult()?.id.toString()//, AppConstant.USER
         )
 
         call.enqueue(object : Callback<ResponseBody> {

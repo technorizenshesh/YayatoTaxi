@@ -8,6 +8,7 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Color
+import android.media.MediaPlayer
 import android.media.RingtoneManager
 import android.net.Uri
 import android.os.Build
@@ -25,6 +26,8 @@ import java.text.ParseException
 import java.text.SimpleDateFormat
 
 class NotificationUtils(private val mContext: Context) {
+    private lateinit var mediaPlayer: MediaPlayer
+
     fun showNotificationMessage(pushNotificationModel: PushNotificationModel) {
         // Check for empty push message
 //        if (TextUtils.isEmpty(pushNotificationModel.job_id)) return
@@ -48,7 +51,7 @@ class NotificationUtils(private val mContext: Context) {
             )
             val alarmSound = Uri.parse(
                 ContentResolver.SCHEME_ANDROID_RESOURCE
-                        + "://" + mContext.packageName + "/raw/notification_tone"
+                        + "://" + mContext.packageName + "/raw/doogee_ringtone.mp3"
             )
             //
 ////            if (!TextUtils.isEmpty(pushNotificationModel.getImage())) {
@@ -92,6 +95,9 @@ class NotificationUtils(private val mContext: Context) {
         val title =
             pushNotificationModel.driver_firstname //pushNotificationModel.getKey().equals("")?mContext.getString(R.string.app_name):pushNotificationModel.getKey();
         val message = pushNotificationModel.key //pushNotificationModel.getMessage();
+
+        mediaPlayer = MediaPlayer.create(mContext,R.raw.doogee_ringtone)
+        mediaPlayer.start()
 
 //        playNotificationSound();
 //        NotificationCompat.InboxStyle inboxStyle = new NotificationCompat.InboxStyle();

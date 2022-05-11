@@ -9,14 +9,13 @@ import android.os.Looper
 import android.util.Log
 import android.widget.Toast
 import com.google.gson.Gson
-import com.yayatopartnerapp.models.ModelCarsType
-import com.yayatopartnerapp.models.ModelTaxiRequest
 import com.yayatotaxi.R
 import com.yayatotaxi.adapters.AdapterPoolOption
 import com.yayatotaxi.adapters.AdapterRideOption
 import com.yayatotaxi.listener.CarListener
 import com.yayatotaxi.listener.PoolCarListener
 import com.yayatotaxi.models.ModelLogin
+import com.yayatotaxi.models.ModelTaxiRequest
 import com.yayatotaxi.utils.AppConstant
 import com.yayatotaxi.utils.MyApplication
 import com.yayatotaxi.utils.ProjectUtil
@@ -89,7 +88,11 @@ class AvailableDriversAct : AppCompatActivity(), PoolCarListener {
 //                            taxiNamesList.add(item!!)
 //                        }
                         val adapterPoolOption =
-                            AdapterPoolOption(mContext, modelTaxiRequest.getResult(), this@AvailableDriversAct)
+                            AdapterPoolOption(
+                                mContext,
+                                modelTaxiRequest.getResult(),
+                                this@AvailableDriversAct
+                            )
                         recycle_view.adapter = adapterPoolOption
 //                         val modelCarsType:ModelCarsType= Gson().fromJson(responseString, ModelCarsType::class.java)
 //                        sharedPref.setBooleanValue(AppConstant.IS_REGISTER, true)
@@ -117,19 +120,38 @@ class AvailableDriversAct : AppCompatActivity(), PoolCarListener {
 
         })
     }
+
     override fun onClick(position: Int, model: ModelTaxiRequest.Result) {
-        acceptCancelOrderCallTaxiApi("Pending", model?.id!!, modelLogin?.getResult()?.id!!,model?.status!!)
+        acceptCancelOrderCallTaxiApi(
+            "Pending",
+            model?.id!!,
+            modelLogin?.getResult()?.id!!,
+            model?.status!!
+        )
     }
 
-    private fun acceptCancelOrderCallTaxiApi(statuspool: String,requestId: String,driverID: String,status: String) {
+    private fun acceptCancelOrderCallTaxiApi(
+        statuspool: String,
+        requestId: String,
+        driverID: String,
+        status: String
+    ) {
         val tz: TimeZone = TimeZone.getDefault()
         ProjectUtil.showProgressDialog(mContext, false, mContext.getString(R.string.please_wait))
         val api: Api = ApiFactory.getClientWithoutHeader(mContext)!!.create(Api::class.java)
-        val call: Call<ResponseBody> = api.acceptCancelOrderCallTaxiPool(
-            statuspool,
+        val call: Call<ResponseBody> = api.addBookingRequestNew(
+            modelLogin.getResult()?.id.toString(),
             requestId,
-            driverID,
-            tz.id.toString()
+            intent.getStringExtra("date").toString(),
+            intent.getStringExtra("time").toString(),
+            intent.getStringExtra("noofseats").toString(),
+            intent.getStringExtra("sourceAddress").toString(),
+            intent.getStringExtra("sourceAddressLat").toString(),
+            intent.getStringExtra("sourceAddressLon").toString(),
+            intent.getStringExtra("destinationAddress").toString(),
+            intent.getStringExtra("destinationAddressLat").toString(),
+            intent.getStringExtra("destinationAddressLon").toString(),
+            statuspool
         )
 
         call.enqueue(object : Callback<ResponseBody> {
@@ -141,7 +163,12 @@ class AvailableDriversAct : AppCompatActivity(), PoolCarListener {
                     val jsonObject = JSONObject(responseString)
                     if (jsonObject.getString("status") == "1") {
 
-               mContext.startActivity(Intent(mContext, PoolTrackAct::class.java).putExtra("id", requestId).putExtra("status",status))
+                        mContext.startActivity(
+                            Intent(
+                                mContext,
+                                PoolTrackAct::class.java
+                            ).putExtra("id", requestId).putExtra("status", status)
+                        )
 
                         finish()
                     } else {
@@ -160,7 +187,6 @@ class AvailableDriversAct : AppCompatActivity(), PoolCarListener {
 
         })
     }
-
 
 
 }

@@ -1,6 +1,6 @@
 package com.yayatotaxi.listener
 
-import com.yayatopartnerapp.models.ModelCarsType
+import com.yayatotaxi.models.ModelCarsType
 
 
 interface CarListener {

@@ -7,7 +7,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import com.google.gson.Gson
-import com.yayatopartnerapp.models.ModelTaxiRequest
+import com.yayatotaxi.models.ModelTaxiRequest
 import com.yayatotaxi.R
 import com.yayatotaxi.adapters.AdapterRideHistory
 import com.yayatotaxi.models.ModelLogin

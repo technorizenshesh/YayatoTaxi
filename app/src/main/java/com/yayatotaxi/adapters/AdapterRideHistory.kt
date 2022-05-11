@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.yayatopartnerapp.models.ModelTaxiRequest
+import com.yayatotaxi.models.ModelTaxiRequest
 import com.yayatotaxi.R
 import com.yayatotaxi.activities.RideDetailsAct
 import com.yayatotaxi.databinding.AdapterRideHistoryBinding

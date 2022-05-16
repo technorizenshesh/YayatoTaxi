@@ -42,12 +42,15 @@
         <entry key="..\:/Lokesh/YayatoTaxi/YayatoTaxi/YayatoTaxi/app/src/main/res/layout/item_ride_book.xml" value="0.20416666666666666" />
         <entry key="..\:/MyProjects/YayatoTaxi/YayatoTaxi/app/src/main/res/layout/activity_available_drivers.xml" value="0.1264957264957265" />
         <entry key="..\:/MyProjects/YayatoTaxi/YayatoTaxi/app/src/main/res/layout/activity_car_pool_home.xml" value="0.1" />
+        <entry key="..\:/MyProjects/YayatoTaxi/YayatoTaxi/app/src/main/res/layout/activity_home.xml" value="0.14447463768115942" />
         <entry key="..\:/MyProjects/YayatoTaxi/YayatoTaxi/app/src/main/res/layout/activity_login.xml" value="0.1" />
         <entry key="..\:/MyProjects/YayatoTaxi/YayatoTaxi/app/src/main/res/layout/activity_normal_book_home.xml" value="0.1" />
         <entry key="..\:/MyProjects/YayatoTaxi/YayatoTaxi/app/src/main/res/layout/activity_pool_request.xml" value="0.1" />
         <entry key="..\:/MyProjects/YayatoTaxi/YayatoTaxi/app/src/main/res/layout/activity_ride_option.xml" value="0.1381340579710145" />
         <entry key="..\:/MyProjects/YayatoTaxi/YayatoTaxi/app/src/main/res/layout/activity_track.xml" value="0.1" />
+        <entry key="..\:/MyProjects/YayatoTaxi/YayatoTaxi/app/src/main/res/layout/activity_update_profiel.xml" value="0.1" />
         <entry key="..\:/MyProjects/YayatoTaxi/YayatoTaxi/app/src/main/res/layout/adapter_car_on_rent.xml" value="0.1" />
+        <entry key="..\:/MyProjects/YayatoTaxi/YayatoTaxi/app/src/main/res/layout/app_bar_dashboard.xml" value="0.14447463768115942" />
       </map>
     </option>
   </component>

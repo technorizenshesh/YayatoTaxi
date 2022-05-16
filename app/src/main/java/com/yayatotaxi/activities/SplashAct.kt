@@ -31,7 +31,6 @@ class SplashAct : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
         sharedPref = SharedPref(mContext)
-        printHash(mContext)
     }
 
     private fun printHash(mContext: Context) {
@@ -63,7 +62,11 @@ class SplashAct : AppCompatActivity() {
         } else {
             requestPermissions()
         }
+        printHash(mContext)
+
         super.onResume()
+
+
     }
 
     private fun checkPermissions(): Boolean {

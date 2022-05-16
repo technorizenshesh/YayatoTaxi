@@ -307,6 +307,7 @@ class CarPoolHomeAct : AppCompatActivity(), OnMapReadyCallback, TaskLoadedCallba
 
                     }
                 } catch (e: Exception) {
+                    e.printStackTrace()
                 }
             }
         }

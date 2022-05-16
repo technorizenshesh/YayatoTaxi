@@ -1,6 +1,7 @@
 package com.yayatotaxi.activities
 
 import android.Manifest
+import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -107,9 +108,19 @@ class HomeAct : AppCompatActivity(), OnMapReadyCallback/*OnStreetViewPanoramaRea
         currentLocation = LatLng(tracker.latitude, tracker.longitude)
 
         getCurrentTaxiBookingApi()
+        if(modelLogin.getResult()!!.social_status.equals("False")) showAlert(mContext,"Please Complete your profile")
     }
 
 
+    fun showAlert(mContext: Context, text: String) {
+        val builder = AlertDialog.Builder(mContext)
+        builder.setMessage(text).setCancelable(false).setPositiveButton(
+            mContext.getString(R.string.ok)
+        ) { dialog, which ->
+            dialog.dismiss()
+            startActivity(Intent(mContext, UpdateProfielAct::class.java))
+         }.create().show()
+    }
 
 
 

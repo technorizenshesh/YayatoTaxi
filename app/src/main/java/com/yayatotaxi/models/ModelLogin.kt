@@ -78,6 +78,7 @@ class ModelLogin : Serializable {
         var normal_car: String? = null
         var luxurious_car: String? = null
         var pool_car: String? = null
+        var social_status: String? = null
     }
 
 }

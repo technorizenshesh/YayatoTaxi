@@ -14,10 +14,12 @@ import com.facebook.FacebookException
 import com.facebook.login.LoginManager
 import com.facebook.login.LoginResult
 import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.tasks.Task
 import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.*
 import com.google.firebase.messaging.FirebaseMessaging
@@ -67,9 +69,13 @@ class LoginAct : AppCompatActivity() {
 
         // Configure Google Sign In
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-//            .requestIdToken(getString(R.string.default_web_client_id))
+            .requestIdToken(getString(R.string.default_web_client_id))
             .requestEmail()
             .build()
+
+
+
+
 
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance()
@@ -233,6 +239,7 @@ class LoginAct : AppCompatActivity() {
         paramHash.put("image", image)
         paramHash.put("register_id", registerId)
         paramHash.put("social_id", socialId)
+        paramHash.put("step","1")
 
         Log.e("socialLogin", "socialLogin = $paramHash")
         val call = api.socialLogin(paramHash)
@@ -315,7 +322,11 @@ class LoginAct : AppCompatActivity() {
             // a listener.
             /* Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             handleSignInResult(task);*/
+
+
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
+
+            Log.e("value----",task.getResult(ApiException::class.java).idToken+"")
             try {
                 // Google Sign In was successful, authenticate with Firebase
                 val account = task.getResult(ApiException::class.java)
@@ -323,6 +334,7 @@ class LoginAct : AppCompatActivity() {
             } catch (e: ApiException) {
                 // Google Sign In failed, update UI appropriately
                 // ...
+                e.printStackTrace()
             }
         }
     }
